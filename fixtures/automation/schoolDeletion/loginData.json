@@ -1,0 +1,62 @@
+{
+  "lmsUsers": {
+    "SR": {
+      "username": "linuxdev_03_quantum_slave_1_sr",
+      "password": "hb9oKLHbk1NDcurQxed0bkYQEX105HUhMcqqsk1vwjGggPGDrQzhGQZJIzfpWtny3yG7N53P6zaypk7WuDVJwg=="
+    },
+    "PA": {
+      "username": "schoolDelete.pa",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "TSO": {
+      "username": "schoolDelete.tso",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "DTA": {
+      "username": "DTA1.SD_SoftDelete_Auto",
+      "password": "Q+TKjip/i+YVK1/gZr3zRJJ5HNp24Cl/TI7xr9YqgCWErdFxAwdVrirMoAVJ117ZJbHzfT8Mm4nHm2OcjXyeKQ==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "de9b03e9-063d-11f0-9b91-0242ac14000a"
+    },
+    "SA": {
+      "username": "SA3.SD_SoftDelete_Auto",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "de9b03e9-063d-11f0-9b91-0242ac14000a"
+    },
+    "Teacher": {
+      "username": "T21.SD_SoftDelete_Auto",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "de9b03e9-063d-11f0-9b91-0242ac14000a"
+    },
+    "Student": {
+      "username": "St18.SD_SoftDelete_Auto",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "de9b03e9-063d-11f0-9b91-0242ac14000a"
+    }
+  },
+  "cmsUsers": {
+    "PA": {
+      "username": "schoolDelete.pa",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "CA": {
+      "username": "schoolDelete.ca",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "CE": {
+      "username": "schoolDelete.ce",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "CR": {
+      "username": "linuxdev_03_quantum_slave_20_sr",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    }
+  }
+}

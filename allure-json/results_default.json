@@ -1,0 +1,164 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\atharva.more\\Desktop\\AutomationTasks\\quantum-automation-playwright\\playwright.config.ts",
+    "rootDir": "C:/Users/atharva.more/Desktop/AutomationTasks/quantum-automation-playwright/.features-gen",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "C:\\Users\\atharva.more\\Desktop\\AutomationTasks\\quantum-automation-playwright\\fixtures\\globalSetup.ts",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "line",
+        null
+      ],
+      [
+        "html",
+        null
+      ],
+      [
+        "C:\\Users\\atharva.more\\Desktop\\AutomationTasks\\quantum-automation-playwright\\node_modules\\allure-playwright\\dist\\index.js",
+        {
+          "outputFolder": "allure-results"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "allure-json/results_default.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/atharva.more/Desktop/AutomationTasks/quantum-automation-playwright/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {},
+        "id": "Quantum Playwright",
+        "name": "Quantum Playwright",
+        "testDir": "C:/Users/atharva.more/Desktop/AutomationTasks/quantum-automation-playwright/.features-gen",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 600000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.44.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "features\\profile.feature.spec.js",
+      "file": "features/profile.feature.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Profile Verification Functionality",
+          "file": "features/profile.feature.spec.js",
+          "line": 4,
+          "column": 6,
+          "specs": [],
+          "suites": [
+            {
+              "title": "Scenario 1: Verify the profile of user when logged in as [<role>]",
+              "file": "features/profile.feature.spec.js",
+              "line": 6,
+              "column": 8,
+              "specs": [
+                {
+                  "title": "Scenario 1: Verify the profile of user when logged in as [\"PA\"]",
+                  "ok": true,
+                  "tags": [
+                    "profile",
+                    "lms"
+                  ],
+                  "tests": [
+                    {
+                      "timeout": 600000,
+                      "annotations": [],
+                      "expectedStatus": "passed",
+                      "projectId": "Quantum Playwright",
+                      "projectName": "Quantum Playwright",
+                      "results": [
+                        {
+                          "workerIndex": 0,
+                          "status": "passed",
+                          "duration": 14408,
+                          "errors": [],
+                          "stdout": [
+                            {
+                              "text": "\u001b[90mundefined\u001b[39m\n"
+                            }
+                          ],
+                          "stderr": [],
+                          "retry": 0,
+                          "steps": [
+                            {
+                              "title": "Given User login as a \"PA\" in \"LMS\"",
+                              "duration": 3290
+                            },
+                            {
+                              "title": "And User is on the dashboard page",
+                              "duration": 5608
+                            },
+                            {
+                              "title": "When User clicks on the profile icon",
+                              "duration": 345
+                            },
+                            {
+                              "title": "And User clicks on Profile option in the menu",
+                              "duration": 1558
+                            },
+                            {
+                              "title": "Then User is redirected to the Profile Details page",
+                              "duration": 288
+                            }
+                          ],
+                          "startTime": "2025-05-15T11:05:44.476Z",
+                          "attachments": []
+                        }
+                      ],
+                      "status": "expected"
+                    }
+                  ],
+                  "id": "cc3f87a4aa73f90b0c2f-a37c6885cae330fb3505",
+                  "file": "features/profile.feature.spec.js",
+                  "line": 8,
+                  "column": 9
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-05-15T11:05:42.970Z",
+    "duration": 17521.167,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

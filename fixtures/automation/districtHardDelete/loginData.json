@@ -1,0 +1,62 @@
+{
+  "lmsUsers": {
+    "SR": {
+      "username": "linuxdev_03_quantum_slave_1_sr",
+      "password": "hb9oKLHbk1NDcurQxed0bkYQEX105HUhMcqqsk1vwjGggPGDrQzhGQZJIzfpWtny3yG7N53P6zaypk7WuDVJwg=="
+    },
+    "PA": {
+      "username": "districtHardDelete.pa",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "TSO": {
+      "username": "districtHardDelete.tso",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "DTA": {
+      "username": "linuxdev_03_quantum_slave_20_da",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "1992da5d-c99b-11ee-95db-0a79460ba5b1"
+    },
+    "SA": {
+      "username": "linuxdev_03_quantum_slave_20_sa",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "1992da5d-c99b-11ee-95db-0a79460ba5b1"
+    },
+    "teacher": {
+      "username": "linuxdev_03_quantum_slave_20_teacher",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "1992da5d-c99b-11ee-95db-0a79460ba5b1"
+    },
+    "student": {
+      "username": "linuxdev_03_quantum_slave_20_student",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw==",
+      "clearanceLevel": 6,
+      "productType": 2,
+      "groupGUID": "1992da5d-c99b-11ee-95db-0a79460ba5b1"
+    }
+  },
+  "cmsUsers": {
+    "PA": {
+      "username": "districtHardDelete.pa",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "CA": {
+      "username": "districtHardDelete.ca",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "CE": {
+      "username": "districtHardDelete.ce",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    },
+    "CR": {
+      "username": "linuxdev_03_quantum_slave_20_sr",
+      "password": "EylDPs4/P3YuYAGRhmf28W2U3+cIxFtPMdETFOrEMpYEgu7i9WxsA3V3Nhz8CIISEWpcCV4vIdq2vtc/pZ5Wuw=="
+    }
+  }
+}

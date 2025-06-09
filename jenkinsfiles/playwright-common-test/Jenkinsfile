@@ -1,0 +1,104 @@
+def baseDir = 'quantum-automation-playwright'
+def nodeLabel = 'linuxdev-03'
+command = ""
+
+pipeline {
+    agent {
+        label nodeLabel
+    }
+
+    options {
+		timestamps()
+	}
+    
+    stages {
+        stage('Test') {
+            agent {
+                docker {
+                    reuseNode true
+                    image 'mcr.microsoft.com/playwright:v1.44.1-jammy'
+                }
+            }
+            environment {
+                HOME = '.'
+            }
+            stages{
+                stage('Delete Allure Results'){
+                    steps{
+                        script {
+                            try{
+                                dir(baseDir){
+                                    sh "rm -rf allure-results"
+                                    sh "rm -rf playwright-report"
+                                }
+                            }catch(Exception e){
+                                println(e.getMessage())
+                            }
+                        }
+                    }
+                }
+                stage('Run Test'){
+                    steps {
+                        script{
+                            withCredentials([string(credentialsId: "quantum-api-limited-access", variable: 'QUANTUM_API_ACCESS_SECRET_KEY')]) {
+                                wrap([$class: "MaskPasswordsBuildWrapper", varPasswordPairs: [[var: 'QUANTUM_API_ACCESS_SECRET_KEY']]]) {
+                                    def tags = createTags()
+                                    print("Tags: " + tags)
+                                    command += "${tags} BROWSER=${Test_Browser} ENVIRONMENT=${Test_Environment} BUILD_NUMBER=${BUILD_NUMBER} QUANTUM_API_ACCESS_SECRET_KEY=${QUANTUM_API_ACCESS_SECRET_KEY} npm run test -- --trace=${Trace}"
+                                    buildName "${BUILD_DISPLAY_NAME}_${Feature_Name}"
+                                }
+                            }
+                        }
+                        dir(baseDir){
+                            catchError(buildResult: 'FAILURE', stageResult: 'FAILURE'){
+                                sh """ ls """
+                                sh """ npm install """
+                                sh command
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post{
+        always{
+            allure results: [[path: "${baseDir}/allure-results"]]
+            script {
+                env.buildDuration = getFormattedTimeString(currentBuild.duration)
+                def summaryFileContent = readFile("${baseDir}/allure-json/results_${BUILD_NUMBER}.json")
+                env.fileContent = summaryFileContent
+                env.buildNumber = "${BUILD_NUMBER}"
+                try{
+                    dir(baseDir){
+                        sh "rm -fv allure-json/results_${BUILD_NUMBER}.json"
+                    }
+                }catch(Exception e){
+                    println(e.getMessage())
+                }
+            }
+        }
+    }
+}
+
+//Functions
+
+def createTags() {
+    def tags = []
+
+    if (Feature_Name != 'all') {
+        tags.add("@${Feature_Name}")
+    }
+
+    return tags ? "TAGS='${tags.join(' ')}'" : ""
+}
+
+def getFormattedTimeString(milliseconds) {
+    def seconds = (milliseconds / 1000).intValue() % 60
+    def minutes = (milliseconds / (1000 * 60)).intValue() % 60
+    def hours = (milliseconds / (1000 * 60 * 60)).intValue() % 24
+    
+    def timeString =  "${String.format('%02d', hours)}:${String.format('%02d', minutes)}:${String.format('%02d', seconds)}"
+    
+    return timeString
+}

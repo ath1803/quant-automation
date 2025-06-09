@@ -1,0 +1,188 @@
+import groovy.json.JsonSlurper
+
+def jobsMap = [:]
+jobResult = [:]
+automationTeam = 'muskan.lamba@zeuslearning.com, helly.mehta@zeuslearning.com, shashank.rai@zeuslearning.com'
+commonJobName = "quantum-playwright-common-test"
+
+def cmsFeaturesList = []
+
+def lmsFeaturesList = [
+    "districtSoftDelete",
+    "districtRestore",
+    "districtHardDelete",
+    "schoolDeletion"
+]
+            
+def featuresList = Test_Site == 'cms' ? cmsFeaturesList : lmsFeaturesList
+
+println(featuresList)
+
+def parallelStagesMap = featuresList.collectEntries {
+    [(it): generateStage(it)]
+}
+
+def generateStage(featureName) {
+    print featureName
+    return {
+        stage("${featureName}") {
+            build quietPeriod: 0, 
+            job: commonJobName,
+            parameters: [
+                string(name: 'Test_Browser', value: Test_Browser), 
+                string(name: 'Test_Environment', value: Test_Environment),
+                string(name: 'Feature_Name', value: featureName),
+                string(name: 'Trace', value: Trace)
+            ],
+            propagate: false
+        }
+    }
+}
+
+def extractResults(result) {
+    def resultsMap = [:]
+    def statusMap = [:]
+    result.each { key, value ->
+        def jobName = key
+        def buildVars = value.getBuildVariables()
+        statusMap.buildNo = buildVars.buildNumber
+        println(buildVars.buildDuration)
+        if(buildVars.buildDuration) {
+            statusMap.duration = buildVars.buildDuration
+        } else {
+            statusMap.duration = 0
+        }
+        def jsonStr = buildVars.fileContent
+        if (jsonStr != null) {
+            def parser = new JsonSlurper()
+            def summaryJson = parser.parseText(jsonStr)
+            for(suite in summaryJson.suites){
+                statusMap.putAll(
+                [
+                    'totalScenarios': 0,
+                    'passed': 0, 
+                    'failed': 0, 
+                    'skipped': 0, 
+                    'timedOut': 0
+                ])
+                getCount(suite, statusMap)
+                // statusMap.duration = formatTime(statusMap.duration)
+            }
+        } else {
+            println("Handling null allure result case..")
+            handleEmptyJsonStr(jobName, statusMap)
+        }
+        resultsMap[key] = statusMap
+        statusMap = [:]
+    }
+    return resultsMap
+}
+
+def handleEmptyJsonStr(jobName, statusMap) {
+    statusMap.putAll(
+    [
+        'totalScenarios': 0,
+        'passed': 0, 
+        'failed': 0, 
+        'skipped': 0, 
+        'timedOut': 0
+    ])
+}
+
+def formatTime(int milliseconds) {
+    def seconds = (milliseconds / 1000).intValue() % 60
+    def minutes = (milliseconds / (1000 * 60)).intValue() % 60
+    def hours = (milliseconds / (1000 * 60 * 60)).intValue() % 24
+    
+    def timeString =  "${String.format('%02d', hours)}:${String.format('%02d', minutes)}:${String.format('%02d', seconds)}"
+    
+    return timeString
+}
+
+def insertSpaces(String str) {
+  return str.capitalize().replaceAll("(.)([A-Z])", '$1 $2');
+}
+
+def getCount(suitesObj, statusMap) {
+    if(suitesObj.specs.length != 0){
+        for(spec in suitesObj.specs){
+            def result = spec.tests[0].results[0]
+            statusMap.put(result.status, statusMap.get(result.status) + 1)
+            // statusMap.duration = statusMap.get("duration") + result.duration            
+        }
+    }
+    if (suitesObj.containsKey('suites') && suitesObj.suites.size() != 0) {
+        statusMap.totalScenarios = suitesObj.suites.size()
+        for(suite in suitesObj.suites) {
+            getCount(suite, statusMap)
+        }
+    }
+}
+
+def getStatusTable(resultsMap, duration, startTime, endTime) {
+  def htmlStart = "<!DOCTYPE html><html lang=\"en-US\"> <head> <meta http-equiv='content-type' content='text/html; charset=UTF-8'/>"
+  def htmlStyles = '<style>table, th, td{border: 0.5px solid black;border-collapse: collapse;padding: 5px; word-wrap: break-word;} td:first-child {width: 25%;} .gray{color:gray}.red{color:red} table{table-layout:fixed;}</style> </head>'
+  def tableHeader = "<body>"
+  tableHeader += "<p>Started at: ${startTime}</p><p>Ended at: ${endTime}</p>"
+  tableHeader += '<table width="75%" cellspacing="0" cellpadding="6"> <tr> <th style= "width: 3em" >S. No.</th> <th>Feature</th> <th>Automate Workflow</th> <th>Passed</th> <th>Failed</th> <th>Skipped</th> <th>Duration</th> </tr>'
+  def tableRows = ''
+  tableHeader += '<tbody style="text-align: center">'
+  resultsMap.eachWithIndex {key, value, i -> 
+    //console.log(key)
+    def allureReportLink = JOB_URL.replace(JOB_BASE_NAME, commonJobName) + value.buildNo + '/allure'
+    tableRows += "<tr> <td> ${i + 1} </td><td> <a href = ${allureReportLink}> ${insertSpaces(key)} </a> </td> <td> ${value.totalScenarios} </td> <td> ${value.passed} </td> <td> ${value.failed} </td> <td> ${value.skipped} </td> <td> ${value.duration} </tr>"
+  }
+
+  def tableEnd = '</tbody> </table> '
+  def htmlEnd = '</body></html>'
+
+  def html = htmlStart + htmlStyles + tableHeader + tableRows + tableEnd
+  html += "<br>Total execution time: ${duration.replace(' and counting', '')}<br>" + htmlEnd
+
+  return html
+}
+
+pipeline {
+    agent {
+        label "linuxdev-03"
+    }
+    
+    environment {
+        START_TIME = new Date().format('HH:mm:ss')
+    }
+
+    stages {
+        // stage('Sequential') {
+        //     steps {
+        //         script {
+        //             for (jobName in featuresList) {
+        //                 def result = generateStage(jobName).call()
+        //                 jobResult[jobName] = result
+        //             }
+        //         }
+        //     }
+        // }
+        stage('Parallel') {
+            steps {
+                script{
+                    jobResult = parallel parallelStagesMap
+                    println(jobResult)
+                }
+            }
+        }
+    }
+    
+    post{
+		always{
+			script{
+			    def endTime = new Date().format('HH:mm:ss')
+				emailext mimeType: 'text/html',
+				body: getStatusTable(extractResults(jobResult), currentBuild.durationString, env.START_TIME, endTime),
+				subject: "Quantum Playwright run on ${Test_Environment} environment - ${Test_Site.toUpperCase()} Features.",
+				from: 'qa-automation-mumbai@zeuslearning.com',
+				to: automationTeam
+			}
+		}
+	}
+    
+}

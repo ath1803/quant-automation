@@ -1,0 +1,20 @@
+{
+  "lmsUsers": {
+    "DTA": {
+      "validLogin": {
+        "username": "jaykumar.dta",
+        "password": "Ssiquantum@123",
+        "stateName": "Alabama",
+        "districtName": "Zeus City School District"
+      }
+    },
+    "SA": {
+      "validLogin": {
+        "username": "jaykumar.dta",
+        "password": "Ssiquantum@123",
+        "stateName": "Alabama",
+        "districtName": "Zeus City School District"
+      }
+    }
+  }
+}
